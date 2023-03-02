@@ -12,25 +12,22 @@ setInterval(() => {
   const minute = time.getMinutes().toString().padStart(2, "0");
   const second = time.getSeconds().toString().padStart(2, "0");
 
-  h1Tag.append(`${hour}:${minute}:${second}`);
+  h1Tag.innerText(`${hour}:${minute}:${second}`);
   timeZoneLineTag.style.width = `${h1Tag.offsetWidth}px`;
 }, 999);
 
 // sever
-
-let data;
 
 fetch("https://fakestoreapi.com/products")
   .then((respone) => {
     return respone.json();
   })
   .then((dataFromSever) => {
-    data = dataFromSever;
     loadingPageContainerTag.style.opacity = 0;
     setTimeout(() => {
       loadingPageContainerTag.style.display = "none";
     }, 1000);
-    buildUI();
+    buildUI(dataFromSever);
 
     cardContainerTag.style.opacity = 1;
     timeZoneContainerTag.style.opacity = 1;
